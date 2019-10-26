@@ -15,6 +15,7 @@ import com.iftm.restapp.services.RetrofitService;
 import com.iftm.restapp.services.UtilsService;
 import com.iftm.restapp.ui.login.LoginActivity;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -24,6 +25,8 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private final LinkedList<User> listUser = new LinkedList<>();
+
     private TextView campo;
 
 
@@ -41,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful()){
-                    List<User> lista = response.body();
-                    for (User user : lista) {
+                    listUser.addAll(response.body());
+                    for (User user : listUser) {
                         campo.append("\n\nid: " + user.getId() +
                                 "\nNome: " + user.getName() +
                                 "\nEmail: " + user.getEmail());
